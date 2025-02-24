@@ -1,0 +1,12 @@
+syntax = "proto3";
+package Protocol;
+
+//repeated uint64 victims = 3;
+message S_ENTER
+{
+	string name = 1;
+}
+
+//로그인
+//채팅 던지기
+//나가기
