@@ -28,7 +28,8 @@ void CClientPacketHandler::HandlePacket(BYTE* _pBuffer, UINT _ID)
 bool Handle_C_ENTER(shared_ptr<Session> _pSession, Protocol::C_ENTER& _pkt)
 {
 	shared_ptr<CClientSession> pSession = static_pointer_cast<CClientSession>(_pSession);
-	const string& _strPersonName = pSession->GetPersonName();
+	pSession->SetPersonName(_pkt.name());
+	const string& _strPersonName = _pkt.name();
 
 	//성공했다면
 	if (GRoom.Check(_strPersonName) == false)
@@ -76,10 +77,11 @@ bool Handle_C_CHATTING(shared_ptr<Session> _pSession, Protocol::C_CHATTING& _pkt
 
 bool Handle_C_EXIT(shared_ptr<Session> _pSession, Protocol::C_EXIT& _pkt)
 {
-	GRoom.Exit(_pkt.name());
+	shared_ptr<CClientSession> pSession = static_pointer_cast<CClientSession>(_pSession);
+	GRoom.Exit(pSession->GetPersonName());
 
 	Protocol::S_NEW_EXIT other_pkt;
-	other_pkt.set_name(_pkt.name());
+	other_pkt.set_name(pSession->GetPersonName());
 	shared_ptr<SendBuffer> pSendBuffer = CClientPacketHandler::MakeSendBuffer(other_pkt);
 	GRoom.BroadcastExcept(pSendBuffer, _pSession);
 

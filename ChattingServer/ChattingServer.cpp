@@ -12,7 +12,7 @@
 #include "ThreadManager.h"
 
 
-shared_ptr<CClientSession> MakeSharedListener()
+shared_ptr<CClientSession> MakeSharedClient()
 {
     return make_shared<CClientSession>();
 }
@@ -24,7 +24,7 @@ int main()
     CClientPacketHandler::Init();
 
     shared_ptr<ServerService> pService = MakeShared<ServerService>(NetAddress(L"127.0.0.1", 7777),
-        make_shared<IOCP>(), MakeSharedListener,5);
+        make_shared<IOCP>(), MakeSharedClient,5);
 
     pService->Start();
     
