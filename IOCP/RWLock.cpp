@@ -85,7 +85,7 @@ void RWLock::ReadLock()
 	{
 		for (int i = 0; i < MAX_SPINE_COUNT; ++i)
 		{
-			//예상값 ; 아무도 write를 하지 않은 상태
+			//예상값 ; 나무도 write를 하지 않은 상태
 			int iExpected = (m_lockFlag.load() & READ_COUNT_MASK);
 			if (m_lockFlag.compare_exchange_strong(iExpected, iExpected + 1))
 				return;

@@ -33,7 +33,6 @@ void ThreadManager::Join()
 	{
 		if (m_vecThread[i].joinable())
 			m_vecThread[i].join();
-
 	}
 
 	m_vecThread.clear();
@@ -48,6 +47,9 @@ void ThreadManager::init()
 
 void ThreadManager::clear()
 {
-
+	//if (T_SendBufferChunk != nullptr)
+	//{
+	//	T_SendBufferChunk.reset();
+	//}
 }
 

@@ -10,14 +10,15 @@ MemoryPool::MemoryPool()
 	m_vecMemory.resize(MAX_POOLING_SIZE + 1);
 
 	MemoryBlock* memory32 = new MemoryBlock(32, nextMemory, COUNT_32);
+	
 	memory32->m_pOwner = this;
 	for (i ; i <= 32; ++i)
 	{
 		m_vecMemory[i] = memory32;
 	}
 	nextMemory += COUNT_32 * 32;
-
-
+	
+	
 	MemoryBlock* memory64 = new MemoryBlock(64, nextMemory, COUNT_64);
 	memory64->m_pOwner = this;
 	for (i; i <= 64; ++i)
@@ -49,7 +50,7 @@ MemoryPool::MemoryPool()
 	memory512->m_pOwner = this;
 	for (i; i <= 512; ++i)
 	{
-		m_vecMemory[i] = memory32;
+		m_vecMemory[i] = memory512;
 	}
 	nextMemory += (COUNT_512 * 512);
 	
@@ -74,7 +75,23 @@ MemoryPool::MemoryPool()
 
 MemoryPool::~MemoryPool()
 {
+	// 중복 해제를 방지하기 위해 set을 사용
+	std::set<MemoryBlock*> setMemory;
 
+	for (int i = 1; i <= MAX_POOLING_SIZE; ++i)
+	{
+		setMemory.insert(m_vecMemory[i]);
+	}
+
+	 for (MemoryBlock* pBlock : setMemory)
+	 {
+	 	delete pBlock;
+		pBlock = nullptr;
+	 }
+	 
+	 m_vecMemory.clear();
+	 
+	
 }
 
 MemoryHeader* MemoryPool::Pop(size_t _size)
