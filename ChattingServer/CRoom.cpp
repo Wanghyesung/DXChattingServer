@@ -34,7 +34,7 @@ bool CRoom::Enter(const string& _strName, shared_ptr<Session> _pSession)
 
 	m_mapPerson.insert(make_pair(_strName, _pSession));
 	
-	++m_iMaxCount;
+	m_iCurCount.fetch_add(1);
 	return true;
 }
 
@@ -42,12 +42,12 @@ void CRoom::Exit(const string& _strName)
 {
 	WLock lock(m_lock);
 
-	if (m_mapPerson.find(_strName) != m_mapPerson.end())
+	if (m_mapPerson.find(_strName) == m_mapPerson.end())
 		return;
 
 	m_mapPerson.erase(_strName);
 
-	--m_iMaxCount;
+	m_iCurCount.fetch_sub(1);
 }
 
 void CRoom::Broadcast(shared_ptr<SendBuffer> _pBuffer)

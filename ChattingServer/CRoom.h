@@ -22,6 +22,7 @@ private:
 	map<string, shared_ptr<Session>> m_mapPerson;
 
 	atomic<INT> m_iMaxCount;
+	atomic<INT> m_iCurCount;
 };
 
 

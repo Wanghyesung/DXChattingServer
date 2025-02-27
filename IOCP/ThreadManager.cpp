@@ -33,6 +33,7 @@ void ThreadManager::Join()
 	{
 		if (m_vecThread[i].joinable())
 			m_vecThread[i].join();
+
 	}
 
 	m_vecThread.clear();
