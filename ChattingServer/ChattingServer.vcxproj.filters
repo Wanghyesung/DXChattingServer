@@ -7,8 +7,8 @@
     <ClCompile Include="CClientPacketHandler.cpp" />
     <ClCompile Include="CRoom.cpp" />
     <ClCompile Include="Chatting.pb.cc" />
-    <ClCompile Include="Exit.pb.cc" />
     <ClCompile Include="Enter.pb.cc" />
+    <ClCompile Include="Exit.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -16,8 +16,8 @@
     <ClInclude Include="CClientPacketHandler.h" />
     <ClInclude Include="CRoom.h" />
     <ClInclude Include="Chatting.pb.h" />
-    <ClInclude Include="Exit.pb.h" />
     <ClInclude Include="Enter.pb.h" />
+    <ClInclude Include="Exit.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\protoc-3.17.1-win64\bin\Enter.proto" />

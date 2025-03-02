@@ -58,15 +58,15 @@ bool Handle_C_ENTER(shared_ptr<Session> _pSession, Protocol::C_ENTER& _pkt)
 
 bool Handle_C_CHATTING(shared_ptr<Session> _pSession, Protocol::C_CHATTING& _pkt)
 {
-	
+	shared_ptr<CClientSession> pSession =  static_pointer_cast<CClientSession>(_pSession);
 	//나를 제외한 다른 클라들에게 전송
 	Protocol::S_NEW_CHATTING other_pkt;
-	other_pkt.set_name(_pkt.name());
+	other_pkt.set_name(pSession->GetPersonName());
 	other_pkt.set_text(_pkt.text());
 	shared_ptr<SendBuffer> pSendBuffer = CClientPacketHandler::MakeSendBuffer(other_pkt);
 	GRoom.BroadcastExcept(pSendBuffer, _pSession);
 
-	//성공 패킷 전송
+	//나에겐 성공 패킷 전송
 	Protocol::S_CHATTING pkt;
 	pkt.set_success(true);
 	pSendBuffer = CClientPacketHandler::MakeSendBuffer(pkt);
