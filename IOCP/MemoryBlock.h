@@ -27,6 +27,7 @@ private:
 	vector<BYTE*> m_Memroy;//받은 바이트를 내 사이즈만큼 나눠서 보관
 	MemoryPool* m_pOwner;
 
+	RWLock m_Lock;
 
 	friend class MemoryPool;
 };

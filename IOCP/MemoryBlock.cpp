@@ -20,9 +20,10 @@ MemoryBlock::~MemoryBlock()
 
 }
 
-//나중엔 멀티스레드 환경을 위해 lock을 걸기
 MemoryHeader* MemoryBlock::Pop()
 {
+    WLock lock(m_Lock);
+
     if (!m_Memroy.empty())
     {
         BYTE* memory = m_Memroy.back();
@@ -38,7 +39,8 @@ MemoryHeader* MemoryBlock::Pop()
 
 void MemoryBlock::Push(MemoryHeader* _ptr)
 {
-   //lock
+    WLock lock(m_Lock);
+
    BYTE* memory = reinterpret_cast<BYTE*>(_ptr);
     m_Memroy.push_back(memory);
 }

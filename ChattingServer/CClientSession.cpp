@@ -25,12 +25,12 @@ int CClientSession::OnRecvPacket(BYTE* _buffer, int _iLen)
 
 void CClientSession::OnConnected()
 {
-	
+	wcout << "Connected Client ";
 }
 
 void CClientSession::OnSend(int len)
 {
-
+	
 }
 
 void CClientSession::OnDisConnected()
